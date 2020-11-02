@@ -33,6 +33,21 @@ val wordCounts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)
 
 // collect the word count in shell
 wordCounts.collect()
+
+// sorted word counts
+val sort = wordCounts.sortBy(_._2,false);
+
+// writing to a file
+def writingToAFile(f: java.io.File)(i: java.io.PrintWriter => Unit) { val p = new java.io.PrintWriter(f); try { i(p) } finally { p.close() } }
+
+// top 10 words from the sorted data
+val topWords = sort.take(10);
+
+// import from java.io
+import java.io._;
+
+// collect the dta to visual_data.txt
+writingToAFile(new File("C:/visual_data.txt")) { p => topWords.foreach(p.println) }
 ```
 ## Visual Results:
 * Excel document uploaded to visualize the data
