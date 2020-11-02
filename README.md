@@ -3,52 +3,52 @@
 * Download Spark tar file to C: drive and untar the file
 * Set Environmental variables for Spark
 ## Code:
-```
-// New RDD from Harry_potter.txt in Spark source directory
-val textFile = sc.textFile("Harry_potter.txt")
 
-// To find number of items in the RDD
-textFile.count()
+* New RDD from Harry_potter.txt in Spark source directory <br/>
+``` val textFile = sc.textFile("Harry_potter.txt") ```
 
-// To find the first item in the RDD
-textFile.first()
+* To find number of items in the RDD <br/>
+``` textFile.count() ```
 
-// transformation filter applied to return a new RDD with a subset of the items in the file
-val linesWithSpark = textFile.filter(line => line.contains("Darren"))
+* To find the first item in the RDD <br/>
+``` textFile.first() ```
 
-// To find the number of lines that contain "Darren"
-val ct = textFile.filter(line => line.contains("Darren")).count()
+* transformation filter applied to return a new RDD with a subset of the items in the file <br/>
+``` val linesWithSpark = textFile.filter(line => line.contains("Darren")) ```
 
-// To find the line with most words in RDD
-textFile.map(line => line.split(" ").size).reduce((a, b) => if (a > b) a else b)
+* To find the number of lines that contain "Darren" <br/>
+``` val ct = textFile.filter(line => line.contains("Darren")).count() ```
 
-// To find the largest line count
-textFile.map(line => line.split(" ").size).reduce((a, b) => Math.max(a, b))
+* To find the line with most words in RDD <br/>
+``` textFile.map(line => line.split(" ").size).reduce((a, b) => if (a > b) a else b) ```
 
-// Read the maximum words into maxwords
-val maxWords = textFile.map(line => line.split(" ").size).reduce((a, b) => if (a > b) a else b)
+* To find the largest line count <br/>
+``` textFile.map(line => line.split(" ").size).reduce((a, b) => Math.max(a, b)) ```
 
-// To maintain the key value pairs of word counts
-val wordCounts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey((a, b) => a + b)
+* Read the maximum words into maxwords <br/>
+``` val maxWords = textFile.map(line => line.split(" ").size).reduce((a, b) => if (a > b) a else b) ```
 
-// collect the word count in shell
-wordCounts.collect()
+* To maintain the key value pairs of word counts <br/>
+``` val wordCounts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey((a, b) => a + b) ```
 
-// sorted word counts
-val sort = wordCounts.sortBy(_._2,false);
+* collect the word count in shell <br/>
+``` wordCounts.collect() ```
 
-// writing to a file
-def writingToAFile(f: java.io.File)(i: java.io.PrintWriter => Unit) { val p = new java.io.PrintWriter(f); try { i(p) } finally { p.close() } }
+* sorted word counts <br/>
+``` val sort = wordCounts.sortBy(_._2,false); ```
 
-// top 10 words from the sorted data
-val topWords = sort.take(10);
+* writing to a file <br/>
+``` def writingToAFile(f: java.io.File)(i: java.io.PrintWriter => Unit) { val p = new java.io.PrintWriter(f); try { i(p) } finally { p.close() } } ```
 
-// import from java.io
-import java.io._;
+* top 10 words from the sorted data <br/>
+``` val topWords = sort.take(10);  ```
 
-// collect the dta to visual_data.txt
-writingToAFile(new File("C:/visual_data.txt")) { p => topWords.foreach(p.println) }
-```
+* import from java.io; <br/>
+``` import java.io._; ```
+
+* collect the dta to visual_data.txt <br/>
+``` writingToAFile(new File("C:/visual_data.txt")) { p => topWords.foreach(p.println) } ```
+
 ## Visual Results:
 * Excel document uploaded to visualize the data
 ## References:
